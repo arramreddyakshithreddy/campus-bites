@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Check, ChefHat, Clock3, Coffee, Leaf, Minus, Plus, Search, ShoppingBag, Sparkles, X } from 'lucide-react'
 
-const API = 'http://localhost:8081/api'
+const API = `${import.meta.env.VITE_API_URL || 'http://localhost:8081'}/api`
 const fallbackMenu = [
   { id: 1, name: 'Masala Dosa', description: 'Crispy dosa, potato masala & coconut chutney', category: 'Breakfast', price: 55, image: 'https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=900&q=85', tag: 'Canteen classic', vegetarian: true },
   { id: 2, name: 'Veg Fried Rice', description: 'Wok-tossed rice with vegetables and spring onion', category: 'Meals', price: 85, image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=85', tag: 'Popular', vegetarian: true },

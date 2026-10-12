@@ -28,7 +28,7 @@ Open a terminal in `backend`:
 mvn spring-boot:run
 ```
 
-Backend API: `http://localhost:8080/api/menu`
+Backend API: `http://localhost:8080/api/menu` (or port 8081 if port 8080 is already in use).
 
 ## Run the frontend
 Open a second terminal in `frontend`:
@@ -39,6 +39,26 @@ npm run dev
 ```
 
 Open the local URL printed by Vite (usually `http://localhost:5173`).
+
+To connect the frontend to a backend on a different URL, set `VITE_API_URL` to the backend base URL (without `/api`) before starting or building the frontend. For example, use `http://localhost:8081` if the backend runs on port 8081.
+
+## Deploy
+
+### Backend on Render
+
+1. In Render, create a **Blueprint** from this GitHub repository and select `render.yaml`.
+2. Set `CORS_ALLOWED_ORIGINS` to the exact Vercel production URL, such as `https://your-project.vercel.app` (comma-separate additional trusted origins if needed).
+3. Deploy the `campus-bites-api` web service. Its API is available at `https://<your-render-service>.onrender.com/api`.
+
+The backend uses `PORT` provided by Render and Docker builds the Spring Boot application with Java 17.
+
+### Frontend on Vercel
+
+1. Import this GitHub repository into Vercel and set **Root Directory** to `frontend`.
+2. Set the `VITE_API_URL` environment variable to your Render service base URL, without `/api`, for example `https://<your-render-service>.onrender.com`.
+3. Deploy the project. The Vercel URL must also be listed in the Render service's `CORS_ALLOWED_ORIGINS`; redeploy the backend after changing it.
+
+The `VITE_API_URL` value is embedded at build time, so redeploy the frontend after changing it. Free Render services may spin down while idle and take a little time to respond to the first request.
 
 ## API endpoints
 - `GET /api/menu` — list all food items
